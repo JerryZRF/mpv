@@ -48,6 +48,8 @@
 #include "core.h"
 #include "client.h"
 
+#include <libavcodec/jni.h>
+
 /*
  * Locking hierarchy:
  *
@@ -2235,4 +2237,8 @@ bool mp_streamcb_lookup(struct mpv_global *g, const char *protocol,
     }
     mp_mutex_unlock(&clients->lock);
     return found;
+}
+
+int mpv_lavc_set_java_vm(void *vm) {
+    return av_jni_set_java_vm(vm, NULL);
 }

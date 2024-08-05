@@ -55,4 +55,14 @@ void kill_video_async(struct mp_client_api *client_api);
 bool mp_streamcb_lookup(struct mpv_global *g, const char *protocol,
                         void **out_user_data, mpv_stream_cb_open_ro_fn *out_fn);
 
+/**
+* Calls av_jni_set_java_vm() with the given JavaVM*.
+* https://github.com/FFmpeg/FFmpeg/blob/0ba719f726632d73592311615087a0d64aa2fb60/libavcodec/jni.h#L26-L36
+* 
+* The av_jni_set_java_vm() symbol is not visible when statically linking with libavcodec.
+* It is important to call this method so that libavcodec can access JNI environment & thus, mediacodec APIs.
+*/
+MPV_EXPORT int mpv_lavc_set_java_vm(void *vm);
+
+
 #endif
